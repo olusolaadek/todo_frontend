@@ -1,10 +1,10 @@
 import React from "react";
 
-const TodosList = () => {
+const TodosList = (props) => {
     return (
-        <duv>
+        <div>
             <h1>Todos List</h1>
-        </duv>
+        </div>
     )
 }
 
