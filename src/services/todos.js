@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 class TodoDataService {
-    getALl(token) {
-        axios.defaults.header.common['Authorization'] = 'Token ' + token
+    getAll(token) {
+        axios.defaults.headers.common['Authorization'] = 'Token ' + token
         return axios.get("http://localhost:8000/api/todos/")
     }
 
     createTodo(data, token) {
-        axios.defaults.header.common['Authorization'] = 'Token ' + token
+        axios.defaults.headers.common['Authorization'] = 'Token ' + token
         return axios.post("http://localhost:8000/api/todos/", data)
     }
 

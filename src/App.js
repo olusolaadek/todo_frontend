@@ -46,7 +46,17 @@ const App = () => {
     localStorage.setItem('user', '');
   }
   async function signup(user = null) { // default user to null
-    setUser(user);
+    TodoDataService.signup(user)
+      .then((response) => {
+        setToken(response.data.token);
+        setUser(user.username);
+        localStorage.setItem('user', user.username);
+        localStorage.setItem('token', response.data.token);
+      })
+      .catch((e) => {
+        console.log(e);
+        setError(e.toString())
+      })
   }
 
   return (
@@ -63,11 +73,11 @@ const App = () => {
               <Container>
                 <Link className="nav-link" to={"/"}>Todos</Link>
                 {user ? (
-                  <Link className="nav-link" onClick={logout}>Logout ({user})</Link>
+                  <Link className="nav-link" to={"/login"} onClick={logout}>Logout ({user})</Link>
                 ) : (
                   <>
                     <Link className="nav-link" to={"/login"}>Login</Link>
-                    <Link className="nav-link" to={"/signup"}>Sign Up</Link>
+                    <Link className="nav-link" to={"/signup"} onClick={signup}>Sign Up</Link>
                   </>
                 )}
               </Container>
