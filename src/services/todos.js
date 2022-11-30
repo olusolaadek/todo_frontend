@@ -34,3 +34,5 @@ class TodoDataService {
         return axios.post("http://localhost:8000/api/signup/", data);
     }
 }
+
+export default new TodoDataService;

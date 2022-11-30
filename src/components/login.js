@@ -5,22 +5,55 @@ import Button from "react-bootstrap/Button";
 
 const Login = (props) => {
     const [username, setUsername] = useState("")
-    const [password, getPassword] = useState("")
+    const [password, setPassword] = useState("")
 
     const onChangeUsername = (e) => {
         const username = e.target.value;
         setUsername(username);
     }
 
-    const onChnagePassword = (e) => {
-        password = e.target.value;
-        setPassword(password);
+    const onChangePassword = (e) => {
+        const pass = e.target.value;
+        setPassword(pass);
+    }
+
+    const login = (e) => {
+        console.log(username);
+
+        props.login({ username: username, password: password });
+        // if (localStorage.getItem('username') === username) {
+        //     props.history.push('/')
+        // }
+        props.history.push('/')
     }
 
     return (
-        <div>
+        <Container>
             <h1>Login</h1>
-        </div>
+            <Form>
+                <Form.Group className="mb-3">
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control
+                        type="text"
+                        placeholder="Enter username"
+                        value={username}
+                        onChange={onChangeUsername}
+                    />
+                </Form.Group >
+                <Form.Group>
+                    <Form.Label className="mb-3">Password</Form.Label>
+                    <Form.Control
+                        type="password"
+                        placeholder="Enter password"
+                        value={password}
+                        onChange={onChangePassword}
+                    />
+                </Form.Group>
+                <br />
+                <Button variant="primary" type="button" onClick={login} >Login</Button>
+            </Form>
+
+        </Container >
     )
 }
 
