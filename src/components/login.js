@@ -17,20 +17,9 @@ const Login = (props) => {
         setPassword(pass);
     }
 
-    const login = (e) => {
-        // console.log('e', e);
-        // console.log(`localStorage.getItem(${'user'})`, localStorage.getItem('user'));
-        // console.log(username);
-
+    const login = () => {
         props.login({ username: username, password: password });
-        if (localStorage.getItem('user') === username) {
-            console.log('Login Successfully');
-            props.history.push('/')
-        }
-        else {
-            console.log('Failed login - check username and password');
-        }
-        // props.history.push('/') // redirect to the root
+        props.history.push('/');
     }
 
     return (

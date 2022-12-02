@@ -1,0 +1,4 @@
+{
+    "js/ts.implicitProjectConfig.target": "ES6",
+    "jshint.enable": false
+}
