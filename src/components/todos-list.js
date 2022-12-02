@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Card from 'react-bootstrap/Card';
 
 import { Link } from "react-router-dom";
-import TodoDataService from "../services/todos";
+import TodoDataService from "../services/todos-services";
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
@@ -56,7 +56,7 @@ const TodosList = (props) => {
                                         <Card.Text>Date Created: {moment(todo.created).format('Do MMMM YYYY')}</Card.Text>
                                     </div>
                                     <Link
-                                        to={{ pathway: "/todos" + todo.id, state: { currentTodo: todo } }}
+                                        to={{ pathname: "/todos/" + todo.id, state: { currentTodo: todo } }}
                                     >
                                         <Button variant="outline-info" className="me-2">Edit</Button>
                                     </Link>

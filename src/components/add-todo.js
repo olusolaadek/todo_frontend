@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TodoDataService from '../services/todos'
+import TodoDataService from '../services/todos-services'
 import { Link } from 'react-router-dom';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -10,6 +10,14 @@ const AddTodo = (props) => {
     let editing = false;
     let initialTodoTitle = "";
     let initialTodoMemo = "";
+
+    // allow edit of a todo
+    if (props.location.state && props.location.state.currentTodo) {
+        editing = true;
+        initialTodoTitle = props.location.state.currentTodo.title;
+        initialTodoMemo = props.location.state.currentTodo.memo;
+
+    }
 
     const [title, setTitle] = useState(initialTodoTitle);
     const [memo, setMemo] = useState(initialTodoMemo);
@@ -31,13 +39,28 @@ const AddTodo = (props) => {
             memo: memo,
             completed: false,
         }
-        TodoDataService.createTodo(data, props.token)
-            .then(response => {
-                setSubmitted(true);
-            })
-            .catch(e => {
-                console.log(e);
-            });
+        if (editing) {
+            TodoDataService.updateTodo(
+                props.location.state.currentTodo.id, data, props.token
+            )
+                .then(response => {
+                    setSubmitted(true);
+                    console.log(response.data);
+                })
+                .catch(e => {
+                    console.log("Editing error", e)
+                })
+        }
+        else {
+            TodoDataService.createTodo(data, props.token)
+                .then(response => {
+                    setSubmitted(true);
+                })
+                .catch(e => {
+                    console.log(e);
+                });
+        }
+
     }
     return (
         <Container>
