@@ -38,6 +38,17 @@ const TodosList = (props) => {
                 console.log('Delete Todo', e);
             })
     }
+    const completeTodo = (todoId) => {
+        TodoDataService.completeTodo(todoId, props.token)
+            .then(response => {
+                retrieveTodos();
+                console.log("Complete Todo", todoId);
+            })
+            .catch(e => {
+                console.log("completeTodo", e);
+            })
+    }
+
 
     return (
         <Container>
@@ -57,7 +68,7 @@ const TodosList = (props) => {
                         return (
                             <Card key={todo.id} className>
                                 <Card.Body>
-                                    <div>
+                                    <div className={`${todo.completed ? "text-decoration-line-through" : ""}`}>
                                         <Card.Title>{todo.title}</Card.Title>
                                         <Card.Text>
                                             <b>Memo:</b> {todo.memo}
@@ -71,6 +82,11 @@ const TodosList = (props) => {
                                     </Link>
                                     <Button variant="outline-danger" onClick={() => deleteTodo(todo.id)}>
                                         Delete
+                                    </Button>
+                                    <Button
+                                        className="ms-2"
+                                        variant="outline-success" onClick={() => completeTodo(todo.id)}>
+                                        Complete
                                     </Button>
                                 </Card.Body>
                             </Card>
